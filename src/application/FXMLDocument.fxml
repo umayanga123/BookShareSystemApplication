@@ -17,9 +17,9 @@
                   <Font name="Arial Bold Italic" size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="studentNumber" layoutX="156.0" layoutY="104.0" prefHeight="25.0" prefWidth="180.0" promptText="Stunent Number" styleClass="textfield" stylesheets="@designLogin.css" />
+            <TextField fx:id="studentNumber" layoutX="156.0" layoutY="104.0" onKeyTyped="#numbersOnly" prefHeight="25.0" prefWidth="180.0" promptText="Stunent Number" styleClass="textfield" stylesheets="@designLogin.css" />
             <PasswordField fx:id="password" layoutX="156.0" layoutY="149.0" prefHeight="25.0" prefWidth="180.0" promptText="Password" styleClass="textfield" stylesheets="@designLogin.css" />
-            <Button fx:id="login_Btn" layoutX="223.0" layoutY="205.0" mnemonicParsing="false" styleClass="login-btn" stylesheets="@designLogin.css" text="Login" />
+            <Button fx:id="login_Btn" layoutX="223.0" layoutY="205.0" mnemonicParsing="false" onAction="#login" styleClass="login-btn" stylesheets="@designLogin.css" text="Login" />
          </children></AnchorPane>
       <Button fx:id="minimize" layoutX="644.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" styleClass="minimize" stylesheets="@designLogin.css" text="_" textFill="#e4dcdc">
          <font>
