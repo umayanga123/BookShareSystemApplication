@@ -3,6 +3,8 @@ module LibraryManagementSystem {
 	requires javafx.fxml;
 	requires javafx.graphics;
 	requires java.sql;
+	requires javafx.base;
+	requires fontawesomefx;
 	
-	opens application to javafx.graphics, javafx.fxml;
+	opens application to javafx.graphics, javafx.fxml,javafx.base;
 }
