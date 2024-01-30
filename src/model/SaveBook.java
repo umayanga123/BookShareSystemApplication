@@ -1,4 +1,4 @@
-package application;
+package model;
 
 import java.sql.Date;
 
@@ -15,7 +15,6 @@ public class SaveBook {
 		this.genre = genre;
 		this.date = date;
 		this.image = image;
-
 	}
 
 	public String getTitle() {

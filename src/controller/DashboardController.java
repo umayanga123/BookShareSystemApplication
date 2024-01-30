@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.io.File;
 import java.net.URL;
@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import db.DBDataConstanst;
+import db.Database;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -41,6 +43,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import model.AvailableBooks;
+import model.ReturnBook;
+import model.SaveBook;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -296,7 +301,7 @@ public class DashboardController implements Initializable {
 				prepare.setString(5, take_titleLabel.getText());
 				prepare.setString(6, take_authorLabel.getText());
 				prepare.setString(7, take_genreLabel.getText());
-				prepare.setString(8, GetData.path);
+				prepare.setString(8, DBDataConstanst.path);
 				prepare.setDate(9, sqlDate);
 
 				String check = "Not Return";
@@ -334,6 +339,7 @@ public class DashboardController implements Initializable {
 			boolean check = false;
 
 			Alert alert;
+			
 
 			if (take_BookTitle.getText().isEmpty()) {
 
@@ -352,9 +358,9 @@ public class DashboardController implements Initializable {
 					take_genreLabel.setText(result.getString("bookType"));
 					take_dateLabel.setText(result.getString("date"));
 
-					GetData.path = result.getString("image");
+					DBDataConstanst.path = result.getString("image");
 
-					String uri = "file:" + GetData.path;
+					String uri = "file:" + DBDataConstanst.path;
 
 					image = new Image(uri, 127, 162, false, true);
 					take_imageView.setImage(image);
@@ -364,7 +370,6 @@ public class DashboardController implements Initializable {
 
 				if (!check) {
 					take_titleLabel.setText("Book is not available!");
-
 				}
 			}
 
@@ -375,11 +380,10 @@ public class DashboardController implements Initializable {
 	}
 
 	public void studentNumberLabel() {
-		take_StudentNumber.setText(GetData.studentNumber);
+		take_StudentNumber.setText(DBDataConstanst.studentNumber);
 	}
 
 	public void clearTakeData() {
-
 		take_BookTitle.setText("");
 		take_titleLabel.setText("");
 		take_authorLabel.setText("");
@@ -390,25 +394,20 @@ public class DashboardController implements Initializable {
 	}
 
 	public void clearFindData() {
-
 		take_titleLabel.setText("");
 		take_authorLabel.setText("");
 		take_genreLabel.setText("");
 		take_dateLabel.setText("");
 		take_imageView.setImage(null);
-
 	}
 
 	public void displayDate() {
-
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String date = format.format(new java.util.Date());
-
 		take_IssuedDate.setText(date);
 	}
 
 	// RETURN FORM
-	// SORRY, I GOT BUG TO SCENEBUILDER THAT'S WHY I CAN'T RUN THE PROGRAM (ERROR)
 	public ObservableList<ReturnBook> returnBook() {
 
 		ObservableList<ReturnBook> bookReturnData = FXCollections.observableArrayList();
@@ -416,7 +415,7 @@ public class DashboardController implements Initializable {
 		String check = "Not Return";
 
 		String sql = "SELECT * FROM take WHERE checkReturn = '" + check + "' and studentNumber = '"
-				+ GetData.studentNumber + "'";
+				+ DBDataConstanst.studentNumber + "'";
 
 		connect = Database.connectDB();
 
@@ -445,7 +444,7 @@ public class DashboardController implements Initializable {
 
 	public void returnBooks() {
 
-		String sql = "UPDATE take SET checkReturn = 'Returned' WHERE bookTitle = '" + GetData.takeBookTitle + "'";
+		String sql = "UPDATE take SET checkReturn = 'Returned' WHERE bookTitle = '" + DBDataConstanst.takeBookTitle + "'";
 
 		connect = Database.connectDB();
 
@@ -511,7 +510,7 @@ public class DashboardController implements Initializable {
 		image = new Image(uri, 143, 181, false, true);
 		return_imageView.setImage(image);
 
-		GetData.takeBookTitle = rBook.getTitle();
+		DBDataConstanst.takeBookTitle = rBook.getTitle();
 	}
 
 	public ObservableList<AvailableBooks> dataList() {
@@ -547,7 +546,7 @@ public class DashboardController implements Initializable {
 
 		ObservableList<SaveBook> listSaveData = FXCollections.observableArrayList();
 
-		String sql = "SELECT * FROM save WHERE studentNumber = '" + GetData.studentNumber + "'";
+		String sql = "SELECT * FROM save WHERE studentNumber = '" + DBDataConstanst.studentNumber + "'";
 
 		connect = Database.connectDB();
 
@@ -606,8 +605,8 @@ public class DashboardController implements Initializable {
 		image = new Image(uri, 117, 148, false, true);
 		save_imageView.setImage(image);
 
-		GetData.savedImage = sBook.getImage();
-		GetData.savedTitle = sBook.getTitle();
+		DBDataConstanst.savedImage = sBook.getImage();
+		DBDataConstanst.savedTitle = sBook.getTitle();
 
 	}
 
@@ -629,12 +628,12 @@ public class DashboardController implements Initializable {
 				alert.showAndWait();
 			} else {
 				prepare = connect.prepareStatement(sql);
-				prepare.setString(1, GetData.studentNumber);
-				prepare.setString(2, GetData.savedTitle);
-				prepare.setString(3, GetData.savedAuthor);
-				prepare.setString(4, GetData.savedGenre);
-				prepare.setString(5, GetData.savedImage);
-				prepare.setDate(6, GetData.savedDate);
+				prepare.setString(1, DBDataConstanst.studentNumber);
+				prepare.setString(2, DBDataConstanst.savedTitle);
+				prepare.setString(3, DBDataConstanst.savedAuthor);
+				prepare.setString(4, DBDataConstanst.savedGenre);
+				prepare.setString(5, DBDataConstanst.savedImage);
+				prepare.setDate(6, DBDataConstanst.savedDate);
 				prepare.executeUpdate();
 
 				alert = new Alert(AlertType.INFORMATION);
@@ -654,8 +653,8 @@ public class DashboardController implements Initializable {
 
 	public void unsaveBooks() {
 
-		String sql = "DELETE FROM save WHERE bookTitle = '" + GetData.savedTitle + "'" + " and studentNumber = '"
-				+ GetData.studentNumber + "'";
+		String sql = "DELETE FROM save WHERE bookTitle = '" + DBDataConstanst.savedTitle + "'" + " and studentNumber = '"
+				+ DBDataConstanst.studentNumber + "'";
 
 		connect = Database.connectDB();
 
@@ -728,13 +727,13 @@ public class DashboardController implements Initializable {
 
 		availableBooks_imageView.setImage(image);
 
-		GetData.takeBookTitle = bookData.getTitle();
+		DBDataConstanst.takeBookTitle = bookData.getTitle();
 
-		GetData.savedTitle = bookData.getTitle();
-		GetData.savedAuthor = bookData.getAuthor();
-		GetData.savedGenre = bookData.getGenre();
-		GetData.savedImage = bookData.getImage();
-		GetData.savedDate = bookData.getDate();
+		DBDataConstanst.savedTitle = bookData.getTitle();
+		DBDataConstanst.savedAuthor = bookData.getAuthor();
+		DBDataConstanst.savedGenre = bookData.getGenre();
+		DBDataConstanst.savedImage = bookData.getImage();
+		DBDataConstanst.savedDate = bookData.getDate();
 
 	}
 
@@ -757,13 +756,15 @@ public class DashboardController implements Initializable {
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Issue Books");
+			
+			
 
 		}
 	}
 
 	public void studentNumber() {
 		// WE CAN DISPLAY THE STUDENT NUMBER THAT STUDENT USED
-		studentNumber_label.setText(GetData.studentNumber);
+		studentNumber_label.setText(DBDataConstanst.studentNumber);
 	}
 
 	public void insertImage() {
@@ -777,15 +778,15 @@ public class DashboardController implements Initializable {
 			image = new Image(file.toURI().toString(), 112, 84, false, true);
 			circle_image.setFill(new ImagePattern(image));
 			smallCircle_image.setFill(new ImagePattern(image));
-			GetData.path = file.getAbsolutePath();
+			DBDataConstanst.path = file.getAbsolutePath();
 			changeProfile();
 		}
 	}
 
 	public void changeProfile() {
-		String uri = GetData.path;
+		String uri = DBDataConstanst.path;
 		uri = uri.replace("\\", "\\\\");
-		String sql = "UPDATE student SET image = '" + uri + "' WHERE studentNumber = '" + GetData.studentNumber + "'";
+		String sql = "UPDATE student SET image = '" + uri + "' WHERE studentNumber = '" + DBDataConstanst.studentNumber + "'";
 		connect = Database.connectDB();
 		try {
 			statement = connect.createStatement();
@@ -797,7 +798,7 @@ public class DashboardController implements Initializable {
 	}
 
 	public void showProfile() {
-		String uri = "file:" + GetData.path;
+		String uri = "file:" + DBDataConstanst.path;
 		image = new Image(uri, 112, 84, false, true);
 		circle_image.setFill(new ImagePattern(image));
 		smallCircle_image.setFill(new ImagePattern(image));
@@ -1079,7 +1080,7 @@ public class DashboardController implements Initializable {
 		try {
 			if (event.getSource() == logout_btn) {
 				// TO SWAP FROM DASHBOARD TO LOGIN FORM
-				Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLDocument.fxml"));
 
 				Stage stage = new Stage();
 				Scene scene = new Scene(root);
@@ -1149,11 +1150,8 @@ public class DashboardController implements Initializable {
 		showSavedBooks();
 
 		// RETURN FORM
-	//	try {
 		showBookReturn();
-	////	} catch (Exception e) {
-		//	e.printStackTrace();
-	//	}
+
 	}
 
 }

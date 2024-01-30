@@ -1,8 +1,8 @@
-package application;
+package db;
 
 import java.sql.Date;
 
-public class GetData {
+public class DBDataConstanst {
 
 	public static String path;
 	public static String studentNumber;

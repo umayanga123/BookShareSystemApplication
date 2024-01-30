@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import db.DBDataConstanst;
+import db.Database;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -69,10 +71,10 @@ public class FXMLDocumentController implements Initializable {
 			} else {
 				if (result.next()) {
 
-					GetData.studentNumber = studentNumber.getText();
+					DBDataConstanst.studentNumber = studentNumber.getText();
 
 					// DON'T FORGET THIS!!!!
-					GetData.path = result.getString("image");
+					DBDataConstanst.path = result.getString("image");
 
 					alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Admin Message");
@@ -84,7 +86,7 @@ public class FXMLDocumentController implements Initializable {
 					login_Btn.getScene().getWindow().hide();
 
 					// FOR DASHBOARD
-					Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
 
 					Stage stage = new Stage();
 
