@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 30, 2024 at 10:57 AM
+-- Generation Time: Jan 31, 2024 at 09:26 AM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -46,6 +46,55 @@ INSERT INTO `book` (`bookTitle`, `author`, `bookType`, `image`, `date`) VALUES
 ('Java Tutorial', 'Thumbnail_04', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\java tutorial.jpg', '2019-12-17'),
 ('Python Tutorial', 'Thumbnail_05', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\python tutorial.jpg', '2017-08-06'),
 ('C# Tutorial', 'Thumbnail_03', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\c#  tutorial book', '2022-05-18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `save`
+--
+
+DROP TABLE IF EXISTS `save`;
+CREATE TABLE IF NOT EXISTS `save` (
+  `studentNumber` varchar(100) NOT NULL,
+  `bookTitle` varchar(100) NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `bookType` varchar(100) NOT NULL,
+  `image` varchar(500) DEFAULT NULL,
+  `date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE IF NOT EXISTS `student` (
+  `studentNumber` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `image` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `take`
+--
+
+DROP TABLE IF EXISTS `take`;
+CREATE TABLE IF NOT EXISTS `take` (
+  `studentNumber` varchar(100) NOT NULL,
+  `firstName` varchar(100) NOT NULL,
+  `lastName` varchar(100) NOT NULL,
+  `gender` varchar(100) NOT NULL,
+  `bookTitle` varchar(100) NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `bookType` varchar(100) NOT NULL,
+  `image` varchar(500) NOT NULL,
+  `date` date DEFAULT NULL,
+  `checkReturn` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

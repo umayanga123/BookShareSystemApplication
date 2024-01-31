@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="691.0" styleClass="login-form" stylesheets="@designLogin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="691.0" styleClass="login-form" stylesheets="@LoginFormDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginFormController">
    <children>
-      <AnchorPane layoutX="102.0" layoutY="50.0" prefHeight="370.0" prefWidth="487.0" styleClass="card-form" stylesheets="@designLogin.css">
+      <AnchorPane layoutX="102.0" layoutY="50.0" prefHeight="370.0" prefWidth="487.0" styleClass="card-form" stylesheets="@LoginFormDesign.css">
          <children>
             <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="214.0" layoutY="72.0" size="5em" />
             <Label layoutX="211.0" layoutY="88.0" text="Login" textFill="WHITE">
@@ -18,18 +18,18 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="studentNumber" layoutX="131.0" layoutY="156.0" onKeyTyped="#numbersOnly" prefHeight="32.0" prefWidth="230.0" promptText="Student Number" styleClass="textfield" stylesheets="@designLogin.css" />
-            <PasswordField fx:id="password" layoutX="131.0" layoutY="196.0" prefHeight="25.0" prefWidth="230.0" promptText="Password" styleClass="textfield" stylesheets="@designLogin.css" />
-            <Button fx:id="login_Btn" layoutX="256.0" layoutY="251.0" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="93.0" styleClass="login-btn" stylesheets="@designLogin.css" text="Login" />
-            <Button fx:id="reg_Btn" layoutX="144.0" layoutY="251.0" mnemonicParsing="false" onAction="#regsiter" prefHeight="42.0" prefWidth="93.0" styleClass="reg-btn" stylesheets="@designLogin.css" text="Rgister" />
+            <TextField fx:id="studentNumber" layoutX="131.0" layoutY="156.0" onKeyTyped="#numbersOnly" prefHeight="32.0" prefWidth="230.0" promptText="Student Number" styleClass="textfield" stylesheets="@LoginFormDesign.css" />
+            <PasswordField fx:id="password" layoutX="131.0" layoutY="196.0" prefHeight="25.0" prefWidth="230.0" promptText="Password" styleClass="textfield" stylesheets="@LoginFormDesign.css" />
+            <Button fx:id="login_Btn" layoutX="143.0" layoutY="244.0" mnemonicParsing="false" onAction="#login" prefHeight="42.0" prefWidth="207.0" styleClass="login-btn" stylesheets="@LoginFormDesign.css" text="Login" />
+            <Button fx:id="reg_Btn" layoutX="143.0" layoutY="302.0" mnemonicParsing="false" onAction="#regsiter" prefHeight="42.0" prefWidth="207.0" styleClass="reg-btn" stylesheets="@LoginFormDesign.css" text="Rgister" />
          </children>
       </AnchorPane>
-      <Button fx:id="close" layoutX="632.0" layoutY="2.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="52.0" styleClass="close" stylesheets="@designLogin.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+      <Button fx:id="close" layoutX="632.0" layoutY="2.0" mnemonicParsing="false" onAction="#exit" prefHeight="24.0" prefWidth="52.0" styleClass="close" stylesheets="@LoginFormDesign.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
          <graphic>
             <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" size="1.2em" />
          </graphic>
       </Button>
-      <Button fx:id="minimize" layoutX="594.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="43.0" styleClass="minimize" stylesheets="@designLogin.css">
+      <Button fx:id="minimize" layoutX="594.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="24.0" prefWidth="43.0" styleClass="minimize" stylesheets="@LoginFormDesign.css">
          <graphic>
             <FontAwesomeIcon fill="WHITE" glyphName="MINUS" size="1.2em" />
          </graphic>

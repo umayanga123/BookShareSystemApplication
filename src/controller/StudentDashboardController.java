@@ -250,18 +250,13 @@ public class StudentDashboardController implements Initializable {
 	private String comboBox[] = { "Male", "Female", "Others" };
 
 	public void gender() {
-
 		List<String> combo = new ArrayList<>();
-
 		for (String data : comboBox) {
-
 			combo.add(data);
 		}
 
 		ObservableList<String> list = FXCollections.observableList(combo);
-
 		take_Gender.setItems(list);
-
 	}
 
 	public void takeBook() {
@@ -486,7 +481,6 @@ public class StudentDashboardController implements Initializable {
 	public void showBookReturn() {
 
 		retBook = returnBook();
-
 		col_return_BookTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 		col_return_Author.setCellValueFactory(new PropertyValueFactory<>("author"));
 		col_return_bookType.setCellValueFactory(new PropertyValueFactory<>("genre"));
