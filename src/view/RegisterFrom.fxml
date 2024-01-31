@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="551.0" stylesheets="@registerForm.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <FontAwesomeIcon glyphName="USERS" layoutX="77.0" layoutY="83.0" size="5em" text="" wrappingWidth="99.0" />
+      <Button layoutX="355.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Regiter User " />
+      <Button layoutX="239.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="clear" />
+      <Button layoutX="51.0" layoutY="302.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="52.0">
+         <graphic>
+            <FontAwesomeIcon glyphName="BACK" />
+         </graphic>
+      </Button>
+      <Label layoutX="189.0" layoutY="46.0" text="Register User Form">
+         <font>
+            <Font name="Arial Bold" size="29.0" />
+         </font>
+      </Label>
+      <Label layoutX="197.0" layoutY="117.0" text="User Name :" />
+      <Label layoutX="197.0" layoutY="160.0" text="Password :" />
+      <Label layoutX="189.0" layoutY="205.0" text="Confirm Password:" />
+      <TextField layoutX="334.0" layoutY="113.0" />
+      <PasswordField layoutX="334.0" layoutY="156.0" />
+      <PasswordField layoutX="334.0" layoutY="201.0" />
+      <ImageView fitHeight="168.0" fitWidth="144.0" layoutX="38.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="334.0" layoutY="246.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Browse Picture" />
+   </children>
+</AnchorPane>

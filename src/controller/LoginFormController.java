@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.util.ResourceBundle;
 
 import db.DBDataConstanst;
 import db.Database;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +32,9 @@ public class LoginFormController implements Initializable {
 
 	@FXML
 	private Button login_Btn;
+
+	@FXML
+	private Button reg_Btn;
 
 	@FXML
 	private Button minimize;
@@ -119,6 +124,39 @@ public class LoginFormController implements Initializable {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@FXML
+	void regsiter(ActionEvent event) {
+		// TO HIDE THE LOGIN FORM
+		reg_Btn.getScene().getWindow().hide();
+
+		// FOR DASHBOARD
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/RegisterForm.fxml"));
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+
+			root.setOnMousePressed((MouseEvent e) -> {
+				x = e.getSceneX();
+				y = e.getSceneY();
+			});
+
+			root.setOnMouseDragged((MouseEvent e) -> {
+				stage.setX(e.getScreenX() - x);
+				stage.setY(e.getScreenY() - y);
+
+			});
+
+			stage.initStyle(StageStyle.TRANSPARENT);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

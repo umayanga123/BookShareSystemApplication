@@ -5,6 +5,7 @@ module LibraryManagementSystem {
 	requires java.sql;
 	requires javafx.base;
 	requires fontawesomefx;
+	requires java.desktop;
 
 	
 	opens application to javafx.graphics, javafx.fxml,javafx.base;

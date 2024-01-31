@@ -58,3 +58,16 @@ and open the template in the editor.
 .login-btn:hover{
     -fx-background-color:#559bc9;
 }
+
+
+.reg-btn{
+    -fx-background-color:#468ec2;
+    -fx-background-radius:15px;
+    -fx-cursor:hand;
+    -fx-text-fill:#fff;
+    -fx-font-size:15px;
+}
+
+.reg-btn:hover{
+    -fx-background-color:#559bc9;
+}
