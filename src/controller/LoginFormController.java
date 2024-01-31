@@ -23,7 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class FXMLDocumentController implements Initializable {
+public class LoginFormController implements Initializable {
 
 	@FXML
 	private Button close;
@@ -86,7 +86,7 @@ public class FXMLDocumentController implements Initializable {
 					login_Btn.getScene().getWindow().hide();
 
 					// FOR DASHBOARD
-					Parent root = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
+					Parent root = FXMLLoader.load(getClass().getResource("/view/StudentDashboard.fxml"));
 
 					Stage stage = new Stage();
 

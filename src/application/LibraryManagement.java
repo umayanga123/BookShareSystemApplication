@@ -15,7 +15,7 @@ public class LibraryManagement extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLDocument.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
 		Scene scene = new Scene(root);
 		root.setOnMousePressed((MouseEvent event) -> {
 			x = event.getSceneX();

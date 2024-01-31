@@ -49,7 +49,7 @@ import model.SaveBook;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class DashboardController implements Initializable {
+public class StudentDashboardController implements Initializable {
 
 	@FXML
 	private Button close;
@@ -1080,7 +1080,7 @@ public class DashboardController implements Initializable {
 		try {
 			if (event.getSource() == logout_btn) {
 				// TO SWAP FROM DASHBOARD TO LOGIN FORM
-				Parent root = FXMLLoader.load(getClass().getResource("/view/FXMLDocument.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
 
 				Stage stage = new Stage();
 				Scene scene = new Scene(root);
