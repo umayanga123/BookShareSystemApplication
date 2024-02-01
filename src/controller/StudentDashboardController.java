@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -79,6 +80,12 @@ public class StudentDashboardController implements Initializable {
 	private Button issueBooks_btn;
 
 	@FXML
+	private Button bookPage_btn;
+
+	@FXML
+	private Button halfNav_bookPageBtn;
+
+	@FXML
 	private Button returnBooks_btn;
 
 	@FXML
@@ -92,6 +99,33 @@ public class StudentDashboardController implements Initializable {
 
 	@FXML
 	private AnchorPane availableBooks_form;
+
+	@FXML
+	private AnchorPane bookPage_form;
+
+	@FXML
+	private ImageView bookPage_imageViewer;
+
+	@FXML
+	private ComboBox<String> bookType_ComboBox;
+
+	@FXML
+	private Button bpAddBookBtn;
+
+	@FXML
+	private Button bookPageBrowse_Btn;
+
+	@FXML
+	private TextField bpAuthor_Text;
+
+	@FXML
+	private Button bpClearBtn;
+
+	@FXML
+	private TextField bpTitle_Text;
+
+	@FXML
+	private DatePicker bookPageDateChooser;
 
 	@FXML
 	private TableView<AvailableBooks> availableBooks_tableView;
@@ -248,8 +282,12 @@ public class StudentDashboardController implements Initializable {
 	private ResultSet result;
 
 	private String comboBox[] = { "Male", "Female", "Others" };
+	private String bookTypeComboBox[] = { "Non-fiction", "fiction", "Novels", "Others" };
 
-	public void gender() {
+	/**
+	 * Adding gender to combo box
+	 */
+	public void addGenders() {
 		List<String> combo = new ArrayList<>();
 		for (String data : comboBox) {
 			combo.add(data);
@@ -257,6 +295,20 @@ public class StudentDashboardController implements Initializable {
 
 		ObservableList<String> list = FXCollections.observableList(combo);
 		take_Gender.setItems(list);
+	}
+
+	/***
+	 * Adding book type to combo box
+	 */
+	public void addBookTypes() {
+		List<String> combo = new ArrayList<>();
+		for (String data : bookTypeComboBox) {
+			combo.add(data);
+		}
+
+		ObservableList<String> list = FXCollections.observableList(combo);
+		bookType_ComboBox.setItems(list);
+
 	}
 
 	public void takeBook() {
@@ -334,7 +386,6 @@ public class StudentDashboardController implements Initializable {
 			boolean check = false;
 
 			Alert alert;
-			
 
 			if (take_BookTitle.getText().isEmpty()) {
 
@@ -439,7 +490,8 @@ public class StudentDashboardController implements Initializable {
 
 	public void returnBooks() {
 
-		String sql = "UPDATE take SET checkReturn = 'Returned' WHERE bookTitle = '" + DBDataConstanst.takeBookTitle + "'";
+		String sql = "UPDATE take SET checkReturn = 'Returned' WHERE bookTitle = '" + DBDataConstanst.takeBookTitle
+				+ "'";
 
 		connect = Database.connectDB();
 
@@ -647,8 +699,8 @@ public class StudentDashboardController implements Initializable {
 
 	public void unsaveBooks() {
 
-		String sql = "DELETE FROM save WHERE bookTitle = '" + DBDataConstanst.savedTitle + "'" + " and studentNumber = '"
-				+ DBDataConstanst.studentNumber + "'";
+		String sql = "DELETE FROM save WHERE bookTitle = '" + DBDataConstanst.savedTitle + "'"
+				+ " and studentNumber = '" + DBDataConstanst.studentNumber + "'";
 
 		connect = Database.connectDB();
 
@@ -691,13 +743,13 @@ public class StudentDashboardController implements Initializable {
 	public void showAvailableBooks() {
 
 		listBook = dataList();
-	
+
 		col_ab_bookTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 		col_ab_author.setCellValueFactory(new PropertyValueFactory<>("author"));
 		col_ab_bookType.setCellValueFactory(new PropertyValueFactory<>("genre"));
 		col_ab_publishedDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-	 	availableBooks_tableView.setItems(listBook);
+		availableBooks_tableView.setItems(listBook);
 
 	}
 
@@ -738,20 +790,21 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Issue Books");
-			
-			
 
 		}
 	}
@@ -780,7 +833,8 @@ public class StudentDashboardController implements Initializable {
 	public void changeProfile() {
 		String uri = DBDataConstanst.path;
 		uri = uri.replace("\\", "\\\\");
-		String sql = "UPDATE student SET image = '" + uri + "' WHERE studentNumber = '" + DBDataConstanst.studentNumber + "'";
+		String sql = "UPDATE student SET image = '" + uri + "' WHERE studentNumber = '" + DBDataConstanst.studentNumber
+				+ "'";
 		connect = Database.connectDB();
 		try {
 			statement = connect.createStatement();
@@ -834,16 +888,19 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(true);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Available Books");
 
@@ -853,16 +910,19 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Issue Books");
 
@@ -872,16 +932,19 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(true);
+			bookPage_form.setVisible(false);
 
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Return Books");
 
@@ -893,16 +956,41 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(true);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+
+			currentForm_label.setText("Saved Books");
+
+		} else if (event.getSource() == halfNav_bookPageBtn) {
+
+			issue_form.setVisible(false);
+			availableBooks_form.setVisible(false);
+			savedBook_form.setVisible(false);
+			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(true);
+
+			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
+
+			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 
 			currentForm_label.setText("Saved Books");
 
@@ -918,16 +1006,19 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(true);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Available Books");
 
@@ -937,16 +1028,19 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Issue Books");
 
@@ -956,16 +1050,19 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(false);
 			returnBook_form.setVisible(true);
+			bookPage_form.setVisible(false);
 
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Return Books");
 
@@ -977,20 +1074,45 @@ public class StudentDashboardController implements Initializable {
 			availableBooks_form.setVisible(false);
 			savedBook_form.setVisible(true);
 			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(false);
 
 			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
 			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
 
 			currentForm_label.setText("Saved Books");
 
 			showSavedBooks();
+
+		} else if (event.getSource() == bookPage_btn) {
+
+			issue_form.setVisible(false);
+			availableBooks_form.setVisible(false);
+			savedBook_form.setVisible(false);
+			returnBook_form.setVisible(false);
+			bookPage_form.setVisible(true);
+
+			savedBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			availableBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			issueBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			returnBooks_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			bookPage_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
+
+			halfNav_saveBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_takeBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_returnBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_availableBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #344275, #3a6389);");
+			halfNav_bookPageBtn.setStyle("-fx-background-color:linear-gradient(to bottom right, #46589a, #4278a7);");
+
+			currentForm_label.setText("Book Page");
 
 		}
 	}
@@ -1120,6 +1242,44 @@ public class StudentDashboardController implements Initializable {
 		stage.setIconified(true);
 	}
 
+	/**
+	 * clear book page field
+	 */
+	public void bookPageClear() {
+		bpAuthor_Text.setText(null);
+		bpTitle_Text.setText(null);
+		
+		// Load the image
+		Image image = new Image("file:/C:/Users/abans/eclipse-workspace/LibraryManagementSystem/src/image/logo1.jpg"); 
+		// Set the image to the ImageView
+		bookPage_imageViewer.setImage(image);
+	}
+
+	/***
+	 * Browse image and set to image view
+	 */
+	public void bookPageBrowseImage() {
+		// Create a FileChooser
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select Image");
+
+		// Set the initial directory
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+		// Add image file filters
+		fileChooser.getExtensionFilters()
+				.addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+		// Show the file chooser dialog
+		File selectedFile = fileChooser.showOpenDialog(null);
+
+		// If a file is selected, set it as the image in the ImageView
+		if (selectedFile != null) {
+			Image image = new Image(selectedFile.toURI().toString());
+			bookPage_imageViewer.setImage(image);
+		}
+	}
+
 	/***
 	 * initialized view data with loading.
 	 */
@@ -1139,7 +1299,9 @@ public class StudentDashboardController implements Initializable {
 
 		displayDate();
 
-		gender();
+		addGenders();
+
+		addBookTypes();
 
 		showSavedBooks();
 

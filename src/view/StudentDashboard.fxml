@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
@@ -72,24 +74,29 @@
                      <children>
                         <Circle fx:id="smallCircle_image" fill="#2b2f32" layoutX="39.0" layoutY="44.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
                         <Line endX="86.0" layoutX="-22.0" layoutY="85.0" startX="34.5" stroke="WHITE" />
-                        <Button fx:id="halfNav_availableBtn" layoutX="8.0" layoutY="131.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
+                        <Button fx:id="halfNav_availableBtn" layoutX="9.0" layoutY="159.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="CLIPBOARD" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button fx:id="halfNav_takeBtn" layoutX="8.0" layoutY="196.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
+                        <Button fx:id="halfNav_takeBtn" layoutX="8.0" layoutY="227.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button fx:id="halfNav_returnBtn" layoutX="8.0" layoutY="261.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
+                        <Button fx:id="halfNav_returnBtn" layoutX="8.0" layoutY="297.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="FILE" size="1.5em" />
                            </graphic>
                         </Button>
-                        <Button fx:id="halfNav_saveBtn" layoutX="8.0" layoutY="326.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
+                        <Button fx:id="halfNav_saveBtn" layoutX="8.0" layoutY="369.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="BOOKMARK" size="1.5em" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="halfNav_bookPageBtn" layoutX="9.0" layoutY="94.0" mnemonicParsing="false" onAction="#sideNavButtonDesign" prefHeight="59.0" prefWidth="61.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="ADN" size="1.5em" />
                            </graphic>
                         </Button>
                      </children>
@@ -108,10 +115,10 @@
                            </font>
                         </Label>
                         <Label layoutX="14.0" layoutY="188.0" text="Student#:" textFill="WHITE" />
-                        <Button fx:id="availableBooks_btn" layoutX="29.0" layoutY="249.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Available Books" />
-                        <Button fx:id="issueBooks_btn" layoutX="29.0" layoutY="289.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Issue Books" />
-                        <Button fx:id="returnBooks_btn" layoutX="29.0" layoutY="329.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Return Books" />
-                        <Button fx:id="savedBooks_btn" layoutX="29.0" layoutY="369.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Saved Books" />
+                        <Button fx:id="availableBooks_btn" layoutX="29.0" layoutY="281.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Available Books" />
+                        <Button fx:id="issueBooks_btn" layoutX="29.0" layoutY="317.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Issue Books" />
+                        <Button fx:id="returnBooks_btn" layoutX="29.0" layoutY="356.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Return Books" />
+                        <Button fx:id="savedBooks_btn" layoutX="29.0" layoutY="396.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="30.0" prefWidth="167.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Saved Books" />
                         <Button fx:id="edit_btn" layoutX="49.0" layoutY="25.0" mnemonicParsing="false" onAction="#insertImage" prefHeight="119.0" prefWidth="126.0" styleClass="edit-btn" stylesheets="@studentDashboardDesign.css">
                            <graphic>
                               <FontAwesomeIcon fx:id="edit_icon" fill="WHITE" glyphName="EDIT" size="2em" />
@@ -128,6 +135,7 @@
                               <Font size="13.0" />
                            </font>
                         </Label>
+                        <Button fx:id="bookPage_btn" layoutX="28.0" layoutY="242.0" mnemonicParsing="false" onAction="#navButtonDesign" prefHeight="25.0" prefWidth="169.0" styleClass="nav-btn" stylesheets="@studentDashboardDesign.css" text="Book Page" />
                      </children>
                   </AnchorPane>
                </children>
@@ -136,7 +144,42 @@
          <center>
             <AnchorPane fx:id="mainCenter_form" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="availableBooks_form" prefHeight="498.0" prefWidth="762.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="bookPage_form" prefHeight="498.0" prefWidth="762.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane layoutX="22.0" layoutY="22.0" prefHeight="436.0" prefWidth="719.0" styleClass="card-form" stylesheets="@studentDashboardDesign.css">
+                           <children>
+                              <Label layoutX="217.0" layoutY="17.0" text="Welcome Book Page">
+                                 <font>
+                                    <Font name="System Bold" size="27.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="306.0" layoutY="73.0" text="Book Title:" />
+                              <Label layoutX="304.0" layoutY="114.0" text="Author:" />
+                              <Label layoutX="304.0" layoutY="161.0" text="Book Type:" />
+                              <Label layoutX="304.0" layoutY="210.0" text="Book Image:" />
+                              <ImageView fx:id="bookPage_imageViewer" fitHeight="199.0" fitWidth="161.0" layoutX="64.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/c%23%20%20tutorial%20book.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="304.0" layoutY="261.0" text="Date:" />
+                              <TextField fx:id="bpAuthor_Text" layoutX="404.0" layoutY="110.0" prefHeight="25.0" prefWidth="258.0" styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
+                              <TextField fx:id="bpTitle_Text" layoutX="405.0" layoutY="69.0" prefHeight="25.0" prefWidth="257.0" styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
+                              <Button fx:id="bookPageBrowse_Btn" layoutX="403.0" layoutY="206.0" mnemonicParsing="false" onAction="#bookPageBrowseImage" prefHeight="30.0" prefWidth="224.0" stylesheets="@studentDashboardDesign.css" text="Browse">
+                                 <styleClass>
+                                    <String fx:value="textfield_take" />
+                                    <String fx:value="clear-btn" />
+                                 </styleClass>
+                              </Button>
+                              <DatePicker fx:id="bookPageDateChooser" layoutX="403.0" layoutY="254.0" prefHeight="25.0" prefWidth="227.0" styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
+                              <ComboBox fx:id="bookType_ComboBox" layoutX="403.0" layoutY="157.0" prefHeight="25.0" prefWidth="226.0" promptText="Choose..." styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
+                              <Button fx:id="bpAddBookBtn" layoutX="534.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Add Book" />
+                              <Button fx:id="bpClearBtn" layoutX="421.0" layoutY="309.0" mnemonicParsing="false" onAction="#bookPageClear" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Clear" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="availableBooks_form" prefHeight="498.0" prefWidth="762.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="268.0" layoutY="13.0" prefHeight="472.0" prefWidth="480.0" styleClass="card-form" stylesheets="@studentDashboardDesign.css">
                            <children>
@@ -206,7 +249,7 @@
                                     <Font name="Microsoft Sans Serif" size="18.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="take_Gender" layoutX="243.0" layoutY="206.0" onAction="#gender" prefWidth="150.0" promptText="Choose..." styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
+                              <ComboBox fx:id="take_Gender" layoutX="243.0" layoutY="206.0" onAction="#addGenders" prefWidth="150.0" promptText="Choose..." styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
                               <Label layoutX="14.0" layoutY="262.0" text="Book Details:" textFill="#4386b5">
                                  <font>
                                     <Font name="Berlin Sans FB" size="30.0" />
