@@ -173,7 +173,7 @@
                               </Button>
                               <DatePicker fx:id="bookPageDateChooser" layoutX="403.0" layoutY="254.0" prefHeight="25.0" prefWidth="227.0" styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
                               <ComboBox fx:id="bookType_ComboBox" layoutX="403.0" layoutY="157.0" prefHeight="25.0" prefWidth="226.0" promptText="Choose..." styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
-                              <Button fx:id="bpAddBookBtn" layoutX="534.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Add Book" />
+                              <Button fx:id="bpAddBookBtn" layoutX="534.0" layoutY="309.0" mnemonicParsing="false" onAction="#addBook" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Add Book" />
                               <Button fx:id="bpClearBtn" layoutX="421.0" layoutY="309.0" mnemonicParsing="false" onAction="#bookPageClear" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Clear" />
                            </children>
                         </AnchorPane>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 31, 2024 at 09:26 AM
+-- Generation Time: Feb 01, 2024 at 06:45 AM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -35,17 +35,6 @@ CREATE TABLE IF NOT EXISTS `book` (
   `image` varchar(500) NOT NULL,
   `date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `book`
---
-
-INSERT INTO `book` (`bookTitle`, `author`, `bookType`, `image`, `date`) VALUES
-('Programming Language', 'Thumbnail_01', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\programming language book.jpg', '2018-10-16'),
-('JavaFX Tutorial', 'Thumbnail_02', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\javafx tutorial book.jpg', '2020-04-24'),
-('Java Tutorial', 'Thumbnail_04', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\java tutorial.jpg', '2019-12-17'),
-('Python Tutorial', 'Thumbnail_05', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\python tutorial.jpg', '2017-08-06'),
-('C# Tutorial', 'Thumbnail_03', 'Non-fiction', 'C:\\Users\\abans\\eclipse-workspace\\LibraryManagementSystem\\src\\image\\c#  tutorial book', '2022-05-18');
 
 -- --------------------------------------------------------
 

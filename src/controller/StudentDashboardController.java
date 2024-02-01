@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1248,11 +1249,15 @@ public class StudentDashboardController implements Initializable {
 	public void bookPageClear() {
 		bpAuthor_Text.setText(null);
 		bpTitle_Text.setText(null);
-		
+
 		// Load the image
-		Image image = new Image("file:/C:/Users/abans/eclipse-workspace/LibraryManagementSystem/src/image/logo1.jpg"); 
+		Image image = new Image("file:/C:/Users/abans/eclipse-workspace/LibraryManagementSystem/src/image/logo1.jpg");
 		// Set the image to the ImageView
 		bookPage_imageViewer.setImage(image);
+
+		bookPageDateChooser.setValue(null);
+		bookType_ComboBox.setValue(null);
+
 	}
 
 	/***
@@ -1281,6 +1286,97 @@ public class StudentDashboardController implements Initializable {
 	}
 
 	/***
+	 * Add book functionality implementation
+	 */
+	public void addBook() {
+		Alert alert;
+		if (bpTitle_Text.getText().isBlank() || bpAuthor_Text.getText().isBlank()
+				|| bookPageDateChooser.getValue() == null || bookType_ComboBox.getValue() == null
+				|| bookPage_imageViewer.getImage().getUrl().isBlank()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Please fill all blank fields.");
+			alert.showAndWait();
+		} else if (this.isBookExsistInDB()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Book already content in DB");
+			alert.showAndWait();
+		} else {
+			if (addNewBook() > 0) {
+				alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Admin Message");
+				alert.setHeaderText(null);
+				alert.setContentText("Suscssfully add new book to the system to the system");
+				alert.showAndWait();
+				bookPageClear();
+				showAvailableBooks();
+			}
+		}
+
+	}
+
+	/**
+	 * Check book already in db
+	 * 
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	private boolean isBookExsistInDB() {
+		try {
+			String sql = "SELECT COUNT(*) FROM book WHERE bookTitle = ?";
+			connect = Database.connectDB();
+			prepare = connect.prepareStatement(sql);
+			prepare.setString(1, bpTitle_Text.getText());
+			result = prepare.executeQuery();
+
+			// Check if any rows were returned
+			if (result.next() && result.getInt(1) > 0) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * register new user already in DB
+	 * 
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	private int addNewBook() {
+		try {
+			String sql = "INSERT INTO book VALUES (?,?,?,?,?)";
+			String url = bookPage_imageViewer.getImage().getUrl();
+
+			// Converting LocalDate to Java Date
+			java.sql.Date utilDate = java.sql.Date.valueOf(bookPageDateChooser.getValue());
+
+			// Convert the URL to a File object
+			File file = new File(url);
+			// Get the absolute path from the File object
+			String absolutePath = file.getPath().replace("file:\\", "");
+			connect = Database.connectDB();
+			prepare = connect.prepareStatement(sql);
+			prepare.setString(1, bpTitle_Text.getText());
+			prepare.setString(2, bpAuthor_Text.getText());
+			prepare.setString(3, bookType_ComboBox.getValue());
+			prepare.setString(4, absolutePath);
+			prepare.setDate(5, utilDate);
+			return prepare.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/***
 	 * initialized view data with loading.
 	 */
 	@Override
@@ -1289,9 +1385,6 @@ public class StudentDashboardController implements Initializable {
 		designInserImage();
 
 		showProfile();
-
-		// TO SHOW THE AVAILABLE BOOKS
-		showAvailableBooks();
 
 		studentNumber();
 
@@ -1302,7 +1395,11 @@ public class StudentDashboardController implements Initializable {
 		addGenders();
 
 		addBookTypes();
+		
+		// TO SHOW THE AVAILABLE BOOKS
+		showAvailableBooks();
 
+		//show saved books
 		showSavedBooks();
 
 		// RETURN FORM
