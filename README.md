@@ -1,6 +1,4 @@
-# BookShareSystemApplication
-
-# Book Sharing Application Readme
+# Book Sharing Application
 
 ## Proposal
 
