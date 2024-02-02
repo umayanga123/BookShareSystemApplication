@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +80,9 @@ public class StudentDashboardController implements Initializable {
 	private Button availableBooks_btn;
 
 	@FXML
+	private Button bpUpdateBookBtn;
+
+	@FXML
 	private Button issueBooks_btn;
 
 	@FXML
@@ -91,6 +96,9 @@ public class StudentDashboardController implements Initializable {
 
 	@FXML
 	private Button savedBooks_btn;
+
+	@FXML
+	private Button bpSearchBookBtn;
 
 	@FXML
 	private Button edit_btn;
@@ -172,6 +180,9 @@ public class StudentDashboardController implements Initializable {
 
 	@FXML
 	private Button halfNav_saveBtn;
+
+	@FXML
+	private Button bpAdeleteBookBtn;
 
 	@FXML
 	private AnchorPane mainCenter_form;
@@ -436,6 +447,9 @@ public class StudentDashboardController implements Initializable {
 		take_authorLabel.setText("");
 		take_genreLabel.setText("");
 		take_dateLabel.setText("");
+		take_FirstName.setText("");
+		take_LastName.setText("");
+		take_BookTitle.setText("");
 		take_imageView.setImage(null);
 
 	}
@@ -1290,9 +1304,9 @@ public class StudentDashboardController implements Initializable {
 	 */
 	public void addBook() {
 		Alert alert;
-		if (bpTitle_Text.getText().isBlank() || bpAuthor_Text.getText().isBlank()
-				|| bookPageDateChooser.getValue() == null || bookType_ComboBox.getValue() == null
-				|| bookPage_imageViewer.getImage().getUrl().isBlank()) {
+		if (bpTitle_Text.getText() == null || bpTitle_Text.getText().isBlank() || bpAuthor_Text.getText() == null
+				|| bpAuthor_Text.getText().isBlank() || bookPageDateChooser.getValue() == null
+				|| bookType_ComboBox.getValue() == null || bookPage_imageViewer.getImage().getUrl().isBlank()) {
 			alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Admin Message");
 			alert.setHeaderText(null);
@@ -1344,7 +1358,7 @@ public class StudentDashboardController implements Initializable {
 	}
 
 	/**
-	 * register new user already in DB
+	 * register book already in DB
 	 * 
 	 * @return boolean
 	 * @throws SQLException
@@ -1377,6 +1391,186 @@ public class StudentDashboardController implements Initializable {
 	}
 
 	/***
+	 * Delete book functionality implementation
+	 */
+	public void deleteBook() {
+		Alert alert;
+		if (bpTitle_Text.getText() == null || bpTitle_Text.getText().isBlank()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Please fill book title  fields.");
+			alert.showAndWait();
+		} else if (!this.isBookExsistInDB()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Book is not in DB");
+			alert.showAndWait();
+		} else {
+			if (dbDeleteBook() > 0) {
+				alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Admin Message");
+				alert.setHeaderText(null);
+				alert.setContentText("Suscssfully delete book in system");
+				alert.showAndWait();
+				bookPageClear();
+				showAvailableBooks();
+			}
+		}
+
+	}
+
+	/**
+	 * delete book already in DB
+	 * 
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	private int dbDeleteBook() {
+		try {
+			String sql = "DELETE FROM book WHERE bookTitle = '" + bpTitle_Text.getText() + "'";
+			connect = Database.connectDB();
+			prepare = connect.prepareStatement(sql);
+			return prepare.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/***
+	 * Search book functionality implementation
+	 */
+	public void searchBook() {
+		Alert alert;
+		if (bpTitle_Text.getText() == null || bpTitle_Text.getText().isBlank()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Please fill all book title fields.");
+			alert.showAndWait();
+		} else if (!this.isBookExsistInDB()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Book is not in DB");
+			alert.showAndWait();
+		} else {
+			dbSearchBook();
+		}
+
+	}
+
+	/**
+	 * search book already in DB
+	 * 
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	private void dbSearchBook() {
+		String sql = "SELECT * FROM book WHERE bookTitle = '" + bpTitle_Text.getText() + "'";
+		connect = Database.connectDB();
+
+		try {
+
+			prepare = connect.prepareStatement(sql);
+			result = prepare.executeQuery();
+			while (result.next()) {
+
+				bpTitle_Text.setText(result.getString("bookTitle"));
+				bpAuthor_Text.setText(result.getString("author"));
+				bookType_ComboBox.setValue(result.getString("bookType"));
+				// Assuming result.getString("date") returns a string in a specific date format
+				String dateString = result.getString("date");
+
+				// Define the date format of the string
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+				// Parse the string to a LocalDate object
+				LocalDate date = LocalDate.parse(dateString, formatter);
+				bookPageDateChooser.setValue(date);
+
+				DBDataConstanst.path = result.getString("image");
+				String uri = "file:" + DBDataConstanst.path;
+
+				image = new Image(uri, 127, 162, false, true);
+				bookPage_imageViewer.setImage(image);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/***
+	 * update book functionality implementation
+	 */
+	public void updateBook() {
+		Alert alert;
+		if (bpTitle_Text.getText() == null || bpTitle_Text.getText().isBlank() || bpAuthor_Text.getText() == null
+				|| bpAuthor_Text.getText().isBlank() || bookPageDateChooser.getValue() == null
+				|| bookType_ComboBox.getValue() == null || bookPage_imageViewer.getImage().getUrl().isBlank()) {
+			alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Message");
+			alert.setHeaderText(null);
+			alert.setContentText("Please fill all blank fields.");
+			alert.showAndWait();
+		} else {
+			if (this.isBookExsistInDB() && updateBookDetails() == 1) {
+				alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Admin Message");
+				alert.setHeaderText(null);
+				alert.setContentText("Book data updated");
+				alert.showAndWait();
+				bookPageClear();
+				showAvailableBooks();
+
+			} else {
+				alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Admin Message");
+				alert.setHeaderText(null);
+				alert.setContentText("Book not  in DB");
+				alert.showAndWait();
+			}
+		}
+
+	}
+
+	/**
+	 * update book already in DB
+	 * 
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	private int updateBookDetails() {
+		try {
+			String sql = "UPDATE book SET author=?, bookType=?, image=?, date=? WHERE bookTitle='" + bpTitle_Text.getText() + "'";
+			String url = bookPage_imageViewer.getImage().getUrl();
+
+			// Converting LocalDate to Java Date
+			java.sql.Date utilDate = java.sql.Date.valueOf(bookPageDateChooser.getValue());
+
+			// Convert the URL to a File object
+			File file = new File(url);
+			// Get the absolute path from the File object
+			String absolutePath = file.getPath().replace("file:\\", "");
+			connect = Database.connectDB();
+			prepare = connect.prepareStatement(sql);
+			prepare.setString(1, bpAuthor_Text.getText());
+			prepare.setString(2, bookType_ComboBox.getValue());
+			prepare.setString(3, absolutePath);
+			prepare.setDate(4, utilDate);
+			return prepare.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/***
 	 * initialized view data with loading.
 	 */
 	@Override
@@ -1395,11 +1589,11 @@ public class StudentDashboardController implements Initializable {
 		addGenders();
 
 		addBookTypes();
-		
+
 		// TO SHOW THE AVAILABLE BOOKS
 		showAvailableBooks();
 
-		//show saved books
+		// show saved books
 		showSavedBooks();
 
 		// RETURN FORM

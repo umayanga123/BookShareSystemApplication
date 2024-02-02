@@ -148,7 +148,7 @@
                      <children>
                         <AnchorPane layoutX="22.0" layoutY="22.0" prefHeight="436.0" prefWidth="719.0" styleClass="card-form" stylesheets="@studentDashboardDesign.css">
                            <children>
-                              <Label layoutX="217.0" layoutY="17.0" text="Welcome Book Page">
+                              <Label layoutX="217.0" layoutY="17.0" text="Welcome Book Protal">
                                  <font>
                                     <Font name="System Bold" size="27.0" />
                                  </font>
@@ -173,8 +173,11 @@
                               </Button>
                               <DatePicker fx:id="bookPageDateChooser" layoutX="403.0" layoutY="254.0" prefHeight="25.0" prefWidth="227.0" styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
                               <ComboBox fx:id="bookType_ComboBox" layoutX="403.0" layoutY="157.0" prefHeight="25.0" prefWidth="226.0" promptText="Choose..." styleClass="textfield_take" stylesheets="@studentDashboardDesign.css" />
-                              <Button fx:id="bpAddBookBtn" layoutX="534.0" layoutY="309.0" mnemonicParsing="false" onAction="#addBook" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Add Book" />
-                              <Button fx:id="bpClearBtn" layoutX="421.0" layoutY="309.0" mnemonicParsing="false" onAction="#bookPageClear" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Clear" />
+                              <Button fx:id="bpAddBookBtn" layoutX="144.0" layoutY="311.0" mnemonicParsing="false" onAction="#addBook" prefHeight="25.0" prefWidth="96.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Add Book" />
+                              <Button fx:id="bpClearBtn" layoutX="546.0" layoutY="364.0" mnemonicParsing="false" onAction="#bookPageClear" prefHeight="31.0" prefWidth="120.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Clear" />
+                              <Button fx:id="bpAdeleteBookBtn" layoutX="403.0" layoutY="311.0" mnemonicParsing="false" onAction="#deleteBook" prefHeight="31.0" prefWidth="127.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Delete Book" />
+                              <Button fx:id="bpSearchBookBtn" layoutX="261.0" layoutY="311.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="31.0" prefWidth="115.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Search Book" />
+                              <Button fx:id="bpUpdateBookBtn" layoutX="542.0" layoutY="311.0" mnemonicParsing="false" onAction="#updateBook" prefHeight="31.0" prefWidth="127.0" styleClass="save-btn" stylesheets="@studentDashboardDesign.css" text="Update Book" />
                            </children>
                         </AnchorPane>
                      </children>
